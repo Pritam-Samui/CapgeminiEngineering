@@ -31,12 +31,14 @@ def scan_folder(path):
                     temp=file_name
                     temp=temp.replace(".xml","")
                     tcfile=file_path
-                    tcfile=tcfile.replace("\\"+temp+"\\"+file_name,"\tc_log.xml")
+                    tcfile=tcfile.replace(temp+"\\"+file_name,"tc_log.xml")
                     tree=ET.parse(tcfile)
                     root=tree.getroot()
+                    path_file=temp+"\\"+file_name
                     for i in root.findall("TCASE"):
-                        if i.findtext(file_name):
+                        if i.findtext("LOG")==path_file:
                             root.remove(i)
+                    tree.write(tcfile)
                     
                     print(del_file+" deleting this directory")
                     shutil.rmtree(del_file)
