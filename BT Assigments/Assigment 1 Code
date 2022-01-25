@@ -28,7 +28,9 @@ def scan_folder(path):
                 del_file=del_file.replace("\\"+file_name,"")
                 #print(del_file)
                 if os.path.exists(del_file):
-                    tree=ET.parse(file_path+"\tc_log.xml")
+                    tcfile=file_path
+                    tcfile=tcfile.replace("\\"+file_name,"\tc_log.xml")
+                    tree=ET.parse(tcfile)
                     root=tree.getroot()
                     for i in root.findall("TCASE"):
                         if i.findtext(file_name):
