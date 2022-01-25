@@ -26,15 +26,18 @@ def scan_folder(path):
                 print('Found In Line', index)
                 del_file=file_path.replace("/","\\")
                 del_file=del_file.replace("\\"+file_name,"")
-                #print(del_file)
                 if os.path.exists(del_file):
+                    
+                    temp=file_name
+                    temp=temp.replace(".xml","")
                     tcfile=file_path
-                    tcfile=tcfile.replace("\\"+file_name,"\tc_log.xml")
+                    tcfile=tcfile.replace("\\"+temp+"\\"+file_name,"\tc_log.xml")
                     tree=ET.parse(tcfile)
                     root=tree.getroot()
                     for i in root.findall("TCASE"):
                         if i.findtext(file_name):
                             root.remove(i)
+                    
                     print(del_file+" deleting this directory")
                     shutil.rmtree(del_file)
                 else:
